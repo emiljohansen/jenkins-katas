@@ -58,14 +58,24 @@ pipeline {
         steps {
           unstash 'build' //unstash the repository code
           sh 'ci/build-docker.sh'
+          stash(excludes: '.git', name: 'image')
       }
     }
 
     stage('Docker Push') {
-      when {branch "dev"}
+      when {branch "master"}
       steps {
+        unstash 'image'
         sh 'echo "$DOCKERCREDS_PSW" | docker login -u "$DOCKERCREDS_USR" --password-stdin' //login to docker hub with the credentials above
         sh 'ci/push-docker.sh'
+      }
+    }
+
+    stage('Component Test') {
+      when { branch 'dev/'}
+      steps {
+        unstash 'build'
+        sh 'ci/component-test.sh'
       }
     }
   }
