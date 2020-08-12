@@ -23,9 +23,6 @@ pipeline {
           steps {
             sh 'ci/build-app.sh'
             archiveArtifacts 'app/build/libs/'
-            sh 'ls -a'
-            deleteDir()
-            sh 'ls -a'
           }
         }
 
@@ -53,4 +50,10 @@ pipeline {
       }
     }
   }
+
+  post {
+    always {
+
+        deleteDir() /* clean up our workspace */
+    }
 }
