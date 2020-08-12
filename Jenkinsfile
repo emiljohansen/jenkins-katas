@@ -26,6 +26,18 @@ pipeline {
           }
         }
 
+        stage('Test App') {
+          steps {
+            sh 'ci/build-app.sh'
+            sh 'ls -a'
+            sh 'ci/unit-test-app.sh'
+            sh 'junit \'app/build/test-results/test/TEST-*.xml\''
+            sh 'ls -a'
+            deleteDir()
+            sh 'ls -a'
+          }
+        }
+
       }
     }
 
