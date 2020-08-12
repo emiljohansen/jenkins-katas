@@ -5,6 +5,12 @@ pipeline {
   }
   agent any
   stages {
+    stage('_clone down_') {
+      steps {
+        stash(excludes: '.git', name: 'code')
+      }
+    }
+
     stage('Parallel Execution') {
       parallel {
         stage('Say Hello') {
@@ -27,12 +33,6 @@ pipeline {
             deleteDir()
             sh 'ls -a'
             skipDefaultCheckout true
-          }
-        }
-
-        stage('_clone down_') {
-          steps {
-            stash(excludes: '.git', name: 'code')
           }
         }
 
