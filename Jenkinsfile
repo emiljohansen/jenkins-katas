@@ -34,17 +34,10 @@ pipeline {
 
           }
           steps {
-            sh 'ci/build-app.sh'
-            sh 'ci/unit-test-app.sh'
-            junit '\'app/build/test-results/test/TEST-*.xml\''
-            sh 'ls -a'
-            deleteDir()
-            sh 'ls -a'
+            sh 'ci/unit-test-app'
           }
         }
-
       }
     }
-
   }
 }
