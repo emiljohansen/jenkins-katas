@@ -34,7 +34,7 @@ pipeline {
 
           }
           steps {
-            sh 'ci/unit-test-app'
+            sh 'ci/unit-test-app.sh'
           }
         }
       }
