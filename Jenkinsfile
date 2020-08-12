@@ -10,7 +10,7 @@ pipeline {
           }
         }
 
-        stage('error') {
+        stage('Build App') {
           agent {
             docker {
               image 'gradle:jdk11'
@@ -19,6 +19,7 @@ pipeline {
           }
           steps {
             sh 'ci/build-app.sh'
+            archiveArtifacts 'app/build/libs/'
           }
         }
 
