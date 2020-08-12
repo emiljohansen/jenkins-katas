@@ -72,7 +72,7 @@ pipeline {
     }
 
     stage('Component Test') {
-      when { not {branch pattern: 'dev/*'} }
+      when { not {branch pattern: 'dev/*'} || changeRequest(target: 'master') }
       steps {
         unstash 'build'
         sh 'ci/component-test.sh'
