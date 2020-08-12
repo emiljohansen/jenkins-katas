@@ -1,5 +1,6 @@
 pipeline {
   environment {
+    docker_username = 'emiljohansen'
     DOCKERCREDS = credentials('docker_login')
   }
   agent any
@@ -49,11 +50,10 @@ pipeline {
         sh 'ci/push-docker.sh'
       }
     }
-  }
 
-  post {
-    always {
-
+    post {
+      always {
         deleteDir() /* clean up our workspace */
-    }
+      }
+  }
 }
